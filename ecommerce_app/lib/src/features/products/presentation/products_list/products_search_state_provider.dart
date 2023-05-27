@@ -1,16 +1,18 @@
 import 'package:ecommerce_app/src/features/products/data/fake_products_repository.dart';
 import 'package:ecommerce_app/src/features/products/domain/product.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:get/get.dart';
+// import 'package:your_app/models/product.dart';
+// import 'package:your_app/repository/repository.dart';
 
-part 'products_search_state_provider.g.dart';
+class ProductController extends GetxController {
+  final FakeProductsRepository _repository = FakeProductsRepository.instance;
 
-final productsSearchQueryStateProvider = StateProvider<String>((ref) {
-  return '';
-});
+  RxList<Product> products = RxList<Product>([]);
+  RxString searchQuery = ''.obs;
 
-@riverpod
-Future<List<Product>> productsSearchResults(ProductsSearchResultsRef ref) {
-  final searchQuery = ref.watch(productsSearchQueryStateProvider);
-  return ref.watch(productsListSearchProvider(searchQuery).future);
+  void searchProducts(String query) {
+    print(query);
+    searchQuery.value = query;
+    products.value = _repository.searchProducts(searchTerm: query);
+  }
 }

@@ -165,82 +165,82 @@ String _$productsListSearchHash() =>
 typedef ProductsListSearchRef = AutoDisposeFutureProviderRef<List<Product>>;
 
 /// See also [productsListSearch].
-@ProviderFor(productsListSearch)
-const productsListSearchProvider = ProductsListSearchFamily();
+// @ProviderFor(productsListSearch)
+// const productsListSearchProvider = ProductsListSearchFamily();
 
 /// See also [productsListSearch].
-class ProductsListSearchFamily extends Family<AsyncValue<List<Product>>> {
-  /// See also [productsListSearch].
-  const ProductsListSearchFamily();
+// class ProductsListSearchFamily extends Family<AsyncValue<List<Product>>> {
+//   /// See also [productsListSearch].
+//   const ProductsListSearchFamily();
 
-  /// See also [productsListSearch].
-  ProductsListSearchProvider call(
-    String query,
-  ) {
-    return ProductsListSearchProvider(
-      query,
-    );
-  }
+//   /// See also [productsListSearch].
+//   ProductsListSearchProvider call(
+//     String query,
+//   ) {
+//     return ProductsListSearchProvider(
+//       query,
+//     );
+//   }
 
-  @override
-  ProductsListSearchProvider getProviderOverride(
-    covariant ProductsListSearchProvider provider,
-  ) {
-    return call(
-      provider.query,
-    );
-  }
+  // @override
+  // ProductsListSearchProvider getProviderOverride(
+  //   covariant ProductsListSearchProvider provider,
+  // ) {
+  //   return call(
+  //     provider.query,
+  //   );
+  // }
 
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
+//   static const Iterable<ProviderOrFamily>? _dependencies = null;
 
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+//   @override
+//   Iterable<ProviderOrFamily>? get dependencies => _dependencies;
 
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+//   static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
+//   @override
+//   Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+//       _allTransitiveDependencies;
 
-  @override
-  String? get name => r'productsListSearchProvider';
-}
+//   @override
+//   String? get name => r'productsListSearchProvider';
+// }
 
-/// See also [productsListSearch].
-class ProductsListSearchProvider
-    extends AutoDisposeFutureProvider<List<Product>> {
-  /// See also [productsListSearch].
-  ProductsListSearchProvider(
-    this.query,
-  ) : super.internal(
-          (ref) => productsListSearch(
-            ref,
-            query,
-          ),
-          from: productsListSearchProvider,
-          name: r'productsListSearchProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$productsListSearchHash,
-          dependencies: ProductsListSearchFamily._dependencies,
-          allTransitiveDependencies:
-              ProductsListSearchFamily._allTransitiveDependencies,
-        );
+// /// See also [productsListSearch].
+// class ProductsListSearchProvider
+//     extends AutoDisposeFutureProvider<List<Product>> {
+//   /// See also [productsListSearch].
+//   ProductsListSearchProvider(
+//     this.query,
+//   ) : super.internal(
+//           (ref) => productsListSearch(
+//             ref,
+//             query,
+//           ),
+//           from: productsListSearchProvider,
+//           name: r'productsListSearchProvider',
+//           debugGetCreateSourceHash:
+//               const bool.fromEnvironment('dart.vm.product')
+//                   ? null
+//                   : _$productsListSearchHash,
+//           dependencies: ProductsListSearchFamily._dependencies,
+//           allTransitiveDependencies:
+//               ProductsListSearchFamily._allTransitiveDependencies,
+//         );
 
-  final String query;
+//   final String query;
 
-  @override
-  bool operator ==(Object other) {
-    return other is ProductsListSearchProvider && other.query == query;
-  }
+//   @override
+//   bool operator ==(Object other) {
+//     return other is ProductsListSearchProvider && other.query == query;
+//   }
 
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, query.hashCode);
+//   @override
+//   int get hashCode {
+//     var hash = _SystemHash.combine(0, runtimeType.hashCode);
+//     hash = _SystemHash.combine(hash, query.hashCode);
 
-    return _SystemHash.finish(hash);
-  }
-}
-// ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions
+//     return _SystemHash.finish(hash);
+//   }
+// }
+// // ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions

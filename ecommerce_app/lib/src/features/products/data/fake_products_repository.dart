@@ -10,6 +10,8 @@ part 'fake_products_repository.g.dart';
 
 class FakeProductsRepository {
   FakeProductsRepository({this.addDelay = true});
+
+  static FakeProductsRepository instance = FakeProductsRepository();
   final bool addDelay;
 
   /// Preload with the default list of products when the app starts
@@ -51,19 +53,33 @@ class FakeProductsRepository {
   }
 
   /// Search for products where the title contains the search query
-  Future<List<Product>> searchProducts(String query) async {
-    assert(
-      _products.value.length <= 100,
-      'Client-side search should only be performed if the number of products is small. '
-      'Consider doing server-side search for larger datasets.',
-    );
-    // Get all products
-    final productsList = await fetchProductsList();
-    // Match all products where the title contains the query
-    return productsList
+  // Future<List<Product>> searchProducts(String query) async {
+  //   assert(
+  //     _products.value.length <= 100,
+  //     'Client-side search should only be performed if the number of products is small. '
+  //     'Consider doing server-side search for larger datasets.',
+  //   );
+  //   // Get all products
+  //   final productsList = await fetchProductsList();
+  //   // Match all products where the title contains the query
+  //   return productsList
+  //       .where((product) =>
+  //           product.title.toLowerCase().contains(query.toLowerCase()))
+  //       .toList();
+  // }
+
+  List<Product> searchProducts({String searchTerm = ''}) {
+    // Mengonversi searchTerm menjadi lowercase untuk pencarian yang tidak peka terhadap kapitalisasi
+    final lowercaseSearchTerm = searchTerm.toLowerCase();
+    print('repo$lowercaseSearchTerm');
+
+    // Menggunakan metode where untuk mencari produk dengan productTitle yang cocok dengan searchTerm
+    final searchResults = _products.value
         .where((product) =>
-            product.title.toLowerCase().contains(query.toLowerCase()))
+            product.title.toLowerCase().contains(lowercaseSearchTerm))
         .toList();
+
+    return searchResults;
   }
 
   static Product? _getProduct(List<Product> products, String id) {
@@ -99,15 +115,15 @@ Stream<Product?> product(ProductRef ref, ProductID id) {
   return productsRepository.watchProduct(id);
 }
 
-@riverpod
-Future<List<Product>> productsListSearch(
-    ProductsListSearchRef ref, String query) async {
-  final link = ref.keepAlive();
-  // * keep previous search results in memory for 60 seconds
-  final timer = Timer(const Duration(seconds: 60), () {
-    link.close();
-  });
-  ref.onDispose(() => timer.cancel());
-  final productsRepository = ref.watch(productsRepositoryProvider);
-  return productsRepository.searchProducts(query);
-}
+// @riverpod
+// Future<List<Product>> productsListSearch(
+//     ProductsListSearchRef ref, String query) async {
+//   final link = ref.keepAlive();
+//   // * keep previous search results in memory for 60 seconds
+//   final timer = Timer(const Duration(seconds: 60), () {
+//     link.close();
+//   });
+//   ref.onDispose(() => timer.cancel());
+//   final productsRepository = ref.watch(productsRepositoryProvider);
+//   return productsRepository.searchProducts(query);
+// }
